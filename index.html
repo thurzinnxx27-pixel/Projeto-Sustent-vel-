@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anotações - Projeto Escola Mais Sustentável</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #e8f5e9; /* Fundo verde claro */
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2e7d32;
+            text-align: center;
+            border-bottom: 2px solid #a5d6a7;
+            padding-bottom: 10px;
+        }
+        .pergunta-problema {
+            background-color: #f1f8e9;
+            padding: 10px;
+            border-left: 4px solid #4caf50;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+        label {
+            display: block;
+            font-weight: bold;
+            color: #1b5e20;
+            margin-top: 20px;
+            margin-bottom: 5px;
+        }
+        textarea {
+            width: 100%;
+            height: 120px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-family: inherit;
+            resize: vertical;
+            background-color: #fafafa;
+        }
+        textarea:focus {
+            outline: none;
+            border-color: #4caf50;
+            background-color: #fff;
+            box-shadow: 0 0 5px rgba(76, 175, 80, 0.3);
+        }
+        .status-salvo {
+            text-align: right;
+            font-size: 0.85em;
+            color: #4caf50;
+            height: 20px;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Projeto Escola Mais Sustentável</h1>
+        
+        <div class="pergunta-problema">
+            <strong>Questão-problema:</strong> Como podemos reduzir os desperdícios dentro da escola?
+        </div>
+
+        <!-- Áreas de texto baseadas na sua imagem -->
+        <label for="investigar">Critério A: Investigar</label>
+        <textarea id="investigar" placeholder="Anote aqui os levantamentos de desperdícios, entrevistas e análises..."></textarea>
+
+        <label for="planejar">Critério B: Planejar</label>
+        <textarea id="planejar" placeholder="Anote as propostas de solução, ideias de protótipos e materiais..."></textarea>
+
+        <label for="criar">Critério C: Criar</label>
+        <textarea id="criar" placeholder="Anote sobre a construção de coletores, campanhas visuais e sinalização..."></textarea>
+
+        <label for="avaliar">Critério D: Avaliar</label>
+        <textarea id="avaliar" placeholder="Anote os dados coletados antes/depois e propostas de melhorias..."></textarea>
+
+        <label for="produtoFinal">Produto Final</label>
+        <textarea id="produtoFinal" placeholder="O que será entregue como produto final deste projeto?"></textarea>
+
+        <div class="status-salvo" id="status"></div>
+    </div>
+
+    <script>
+        // Aguarda o HTML carregar completamente
+        document.addEventListener('DOMContentLoaded', () => {
+            const textareas = document.querySelectorAll('textarea');
+            const statusDiv = document.getElementById('status');
+
+            // Função para carregar os dados salvos quando a página abre
+            textareas.forEach(textarea => {
+                const chave = 'projeto_escola_' + textarea.id;
+                const valorSalvo = localStorage.getItem(chave);
+                
+                if (valorSalvo) {
+                    textarea.value = valorSalvo;
+                }
+
+                // Função para salvar os dados sempre que o usuário digita
+                textarea.addEventListener('input', () => {
+                    localStorage.setItem(chave, textarea.value);
+                    
+                    // Mostra o aviso de "Salvo"
+                    statusDiv.textContent = 'Salvo automaticamente! ✓';
+                    
+                    // Esconde o aviso depois de 2 segundos
+                    clearTimeout(window.statusTimeout);
+                    window.statusTimeout = setTimeout(() => {
+                        statusDiv.textContent = '';
+                    }, 2000);
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>
