@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anotações - Projeto Escola Mais Sustentável</title>
+    <title>Projeto Escola Mais Sustentável</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #e8f5e9; /* Fundo verde claro */
+            background-color: #e8f5e9;
             color: #333;
             margin: 0;
             padding: 20px;
@@ -25,24 +25,60 @@
             text-align: center;
             border-bottom: 2px solid #a5d6a7;
             padding-bottom: 10px;
+            margin-top: 0;
         }
-        .pergunta-problema {
-            background-color: #f1f8e9;
-            padding: 10px;
-            border-left: 4px solid #4caf50;
+        
+        /* Menu de Navegação (Abas) */
+        .tabs {
+            display: flex;
             margin-bottom: 20px;
-            font-style: italic;
+            border-bottom: 2px solid #ccc;
+        }
+        .tabs button {
+            flex: 1;
+            padding: 12px;
+            background: none;
+            border: none;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            color: #666;
+            transition: 0.3s;
+        }
+        .tabs button.active {
+            color: #2e7d32;
+            border-bottom: 3px solid #2e7d32;
+            background-color: #f1f8e9;
+        }
+
+        /* Estilos do Formulário */
+        .input-group {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        .input-group div {
+            flex: 1;
         }
         label {
             display: block;
             font-weight: bold;
             color: #1b5e20;
-            margin-top: 20px;
             margin-bottom: 5px;
+            margin-top: 15px;
+        }
+        input[type="text"], select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-family: inherit;
+            background-color: #fafafa;
         }
         textarea {
             width: 100%;
-            height: 120px;
+            height: 100px;
             padding: 10px;
             border: 1px solid #ccc;
             border-radius: 6px;
@@ -51,19 +87,90 @@
             resize: vertical;
             background-color: #fafafa;
         }
-        textarea:focus {
+        input:focus, textarea:focus, select:focus {
             outline: none;
             border-color: #4caf50;
             background-color: #fff;
             box-shadow: 0 0 5px rgba(76, 175, 80, 0.3);
         }
+
+        /* Caixa de destaque para a Entrevista */
+        .entrevista-box {
+            background-color: #f9fbe7;
+            border: 1px solid #dcedc8;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 10px;
+            margin-bottom: 20px;
+        }
+
+        /* Botão Salvar */
+        .btn-salvar {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            margin-top: 20px;
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .btn-salvar:hover {
+            background-color: #388e3c;
+        }
+
         .status-salvo {
-            text-align: right;
-            font-size: 0.85em;
+            text-align: center;
+            font-size: 0.9em;
             color: #4caf50;
             height: 20px;
-            margin-top: 15px;
+            margin-top: 10px;
             font-weight: bold;
+        }
+
+        /* Estilos da Página de Visualização */
+        .view-section {
+            display: none; /* Escondido por padrão */
+        }
+        .relatorio-header {
+            background-color: #f1f8e9;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 5px solid #4caf50;
+        }
+        .relatorio-header h2 {
+            margin: 0 0 10px 0;
+            color: #2e7d32;
+        }
+        .relatorio-header p {
+            margin: 5px 0;
+            font-size: 1.1em;
+        }
+        .view-block {
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        .view-block h3 {
+            color: #2e7d32;
+            margin-bottom: 5px;
+        }
+        .view-block p {
+            margin-top: 0;
+            white-space: pre-wrap; /* Mantém as quebras de linha */
+            line-height: 1.5;
+        }
+        .view-entrevista {
+            background-color: #f9fbe7;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 10px;
+            border-left: 4px solid #afb42b;
         }
     </style>
 </head>
@@ -72,59 +179,203 @@
     <div class="container">
         <h1>Projeto Escola Mais Sustentável</h1>
         
-        <div class="pergunta-problema">
-            <strong>Questão-problema:</strong> Como podemos reduzir os desperdícios dentro da escola?
+        <!-- Menu de Abas -->
+        <div class="tabs">
+            <button id="tab-btn-editar" class="active" onclick="mudarAba('editar')">✏️ Editar Projeto</button>
+            <button id="tab-btn-visualizar" onclick="mudarAba('visualizar')">📄 Visualizar Relatório</button>
         </div>
 
-        <!-- Áreas de texto baseadas na sua imagem -->
-        <label for="investigar">Critério A: Investigar</label>
-        <textarea id="investigar" placeholder="Anote aqui os levantamentos de desperdícios, entrevistas e análises..."></textarea>
+        <!-- SEÇÃO 1: FORMULÁRIO DE EDIÇÃO -->
+        <div id="secao-editar">
+            
+            <div>
+                <label for="nomeAluno">Seu Nome (Autor):</label>
+                <input type="text" id="nomeAluno" placeholder="Digite seu nome completo">
+            </div>
 
-        <label for="planejar">Critério B: Planejar</label>
-        <textarea id="planejar" placeholder="Anote as propostas de solução, ideias de protótipos e materiais..."></textarea>
+            <label for="investigar">Critério A: Investigar (Anotações Gerais)</label>
+            <textarea id="investigar" placeholder="Levantamento de desperdícios, análises, etc..."></textarea>
 
-        <label for="criar">Critério C: Criar</label>
-        <textarea id="criar" placeholder="Anote sobre a construção de coletores, campanhas visuais e sinalização..."></textarea>
+            <!-- Área específica para a Entrevista -->
+            <div class="entrevista-box">
+                <label style="margin-top: 0;">Registro de Entrevista</label>
+                <div class="input-group">
+                    <div>
+                        <label for="nomeEntrevistado">Nome do Entrevistado:</label>
+                        <input type="text" id="nomeEntrevistado" placeholder="Quem você entrevistou?">
+                    </div>
+                    <div>
+                        <label for="categoriaEntrevistado">Categoria da Pessoa:</label>
+                        <select id="categoriaEntrevistado">
+                            <option value="">Selecione...</option>
+                            <option value="Aluno(a)">Aluno(a)</option>
+                            <option value="Professor(a)">Professor(a)</option>
+                            <option value="Funcionário(a)">Funcionário(a)</option>
+                            <option value="Direção/Coordenação">Direção/Coordenação</option>
+                            <option value="Outro">Outro</option>
+                        </select>
+                    </div>
+                </div>
+                <label for="resumoEntrevista">O que foi dito na entrevista?</label>
+                <textarea id="resumoEntrevista" placeholder="Resumo das respostas..." style="height: 80px;"></textarea>
+            </div>
 
-        <label for="avaliar">Critério D: Avaliar</label>
-        <textarea id="avaliar" placeholder="Anote os dados coletados antes/depois e propostas de melhorias..."></textarea>
+            <label for="planejar">Critério B: Planejar</label>
+            <textarea id="planejar" placeholder="Propostas de solução, protótipos, materiais..."></textarea>
 
-        <label for="produtoFinal">Produto Final</label>
-        <textarea id="produtoFinal" placeholder="O que será entregue como produto final deste projeto?"></textarea>
+            <label for="criar">Critério C: Criar</label>
+            <textarea id="criar" placeholder="Construção de coletores, campanhas, sinalização..."></textarea>
 
-        <div class="status-salvo" id="status"></div>
+            <label for="avaliar">Critério D: Avaliar</label>
+            <textarea id="avaliar" placeholder="Aplicação, coleta de dados, melhorias..."></textarea>
+
+            <label for="produtoFinal">Produto Final</label>
+            <textarea id="produtoFinal" placeholder="Qual é o produto final do projeto?"></textarea>
+
+            <button class="btn-salvar" onclick="salvarTudo(true)">💾 Salvar Anotações</button>
+            <div class="status-salvo" id="status"></div>
+        </div>
+
+        <!-- SEÇÃO 2: PÁGINA DE VISUALIZAÇÃO (RELATÓRIO) -->
+        <div id="secao-visualizar" class="view-section">
+            <div class="relatorio-header">
+                <h2 id="view-nome-aluno">Nome não informado</h2>
+                <p><strong>Problema:</strong> Como podemos reduzir os desperdícios dentro da escola?</p>
+            </div>
+
+            <div class="view-block">
+                <h3>Critério A: Investigar</h3>
+                <p id="view-investigar">Nenhuma anotação.</p>
+                
+                <!-- Exibição da Entrevista no Relatório -->
+                <div class="view-entrevista" id="bloco-view-entrevista" style="display: none;">
+                    <strong>Entrevista Registrada:</strong><br>
+                    <strong>Nome:</strong> <span id="view-nomeEntrevistado"></span> <br>
+                    <strong>Categoria:</strong> <span id="view-categoriaEntrevistado"></span> <br>
+                    <strong>Resumo:</strong> <br>
+                    <p id="view-resumoEntrevista" style="margin-bottom: 0; margin-top: 5px;"></p>
+                </div>
+            </div>
+
+            <div class="view-block">
+                <h3>Critério B: Planejar</h3>
+                <p id="view-planejar">Nenhuma anotação.</p>
+            </div>
+
+            <div class="view-block">
+                <h3>Critério C: Criar</h3>
+                <p id="view-criar">Nenhuma anotação.</p>
+            </div>
+
+            <div class="view-block">
+                <h3>Critério D: Avaliar</h3>
+                <p id="view-avaliar">Nenhuma anotação.</p>
+            </div>
+
+            <div class="view-block">
+                <h3>Produto Final</h3>
+                <p id="view-produtoFinal">Nenhuma anotação.</p>
+            </div>
+            
+            <button class="btn-salvar" style="background-color: #2196F3;" onclick="mudarAba('editar')">⬅️ Voltar e Editar</button>
+        </div>
+
     </div>
 
     <script>
-        // Aguarda o HTML carregar completamente
-        document.addEventListener('DOMContentLoaded', () => {
-            const textareas = document.querySelectorAll('textarea');
-            const statusDiv = document.getElementById('status');
+        // Lista com os IDs de todos os campos (sem a equipe)
+        const campos = [
+            'nomeAluno', 'investigar', 
+            'nomeEntrevistado', 'categoriaEntrevistado', 'resumoEntrevista', 
+            'planejar', 'criar', 'avaliar', 'produtoFinal'
+        ];
 
-            // Função para carregar os dados salvos quando a página abre
-            textareas.forEach(textarea => {
-                const chave = 'projeto_escola_' + textarea.id;
-                const valorSalvo = localStorage.getItem(chave);
-                
+        // Salvar dados
+        function salvarTudo(mostrarAviso = false) {
+            campos.forEach(id => {
+                const elemento = document.getElementById(id);
+                localStorage.setItem('projeto_escola_' + id, elemento.value);
+            });
+
+            if (mostrarAviso) {
+                const status = document.getElementById('status');
+                status.textContent = '✅ Tudo salvo com sucesso!';
+                setTimeout(() => { status.textContent = ''; }, 3000);
+            }
+        }
+
+        // Carregar dados
+        function carregarDados() {
+            campos.forEach(id => {
+                const valorSalvo = localStorage.getItem('projeto_escola_' + id);
                 if (valorSalvo) {
-                    textarea.value = valorSalvo;
+                    document.getElementById(id).value = valorSalvo;
                 }
+            });
+        }
 
-                // Função para salvar os dados sempre que o usuário digita
-                textarea.addEventListener('input', () => {
-                    localStorage.setItem(chave, textarea.value);
-                    
-                    // Mostra o aviso de "Salvo"
-                    statusDiv.textContent = 'Salvo automaticamente! ✓';
-                    
-                    // Esconde o aviso depois de 2 segundos
-                    clearTimeout(window.statusTimeout);
-                    window.statusTimeout = setTimeout(() => {
-                        statusDiv.textContent = '';
-                    }, 2000);
+        // Alternar Abas
+        function mudarAba(aba) {
+            const secaoEditar = document.getElementById('secao-editar');
+            const secaoVisualizar = document.getElementById('secao-visualizar');
+            const btnEditar = document.getElementById('tab-btn-editar');
+            const btnVisualizar = document.getElementById('tab-btn-visualizar');
+
+            salvarTudo(); // Salva automaticamente ao trocar de tela
+
+            if (aba === 'editar') {
+                secaoEditar.style.display = 'block';
+                secaoVisualizar.style.display = 'none';
+                btnEditar.classList.add('active');
+                btnVisualizar.classList.remove('active');
+            } else {
+                preencherVisualizacao();
+                secaoEditar.style.display = 'none';
+                secaoVisualizar.style.display = 'block';
+                btnVisualizar.classList.add('active');
+                btnEditar.classList.remove('active');
+            }
+        }
+
+        // Preencher Relatório
+        function preencherVisualizacao() {
+            // Preenche Cabeçalho (Só o nome agora)
+            document.getElementById('view-nome-aluno').textContent = document.getElementById('nomeAluno').value || 'Nome não informado';
+            
+            // Preenche os textos gerais
+            const camposTexto = ['investigar', 'planejar', 'criar', 'avaliar', 'produtoFinal'];
+            camposTexto.forEach(id => {
+                const valor = document.getElementById(id).value;
+                document.getElementById('view-' + id).textContent = valor.trim() !== '' ? valor : 'Nenhuma anotação.';
+            });
+
+            // Preenche a Entrevista
+            const nomeEntrevistado = document.getElementById('nomeEntrevistado').value;
+            const categoriaEntrevistado = document.getElementById('categoriaEntrevistado').value;
+            const resumoEntrevista = document.getElementById('resumoEntrevista').value;
+            const blocoEntrevista = document.getElementById('bloco-view-entrevista');
+
+            if (nomeEntrevistado.trim() !== '' || resumoEntrevista.trim() !== '') {
+                blocoEntrevista.style.display = 'block';
+                document.getElementById('view-nomeEntrevistado').textContent = nomeEntrevistado || 'Não informado';
+                document.getElementById('view-categoriaEntrevistado').textContent = categoriaEntrevistado || 'Não informada';
+                document.getElementById('view-resumoEntrevista').textContent = resumoEntrevista || 'Sem resumo.';
+            } else {
+                blocoEntrevista.style.display = 'none'; // Esconde se não tiver nada
+            }
+        }
+
+        // Inicialização
+        window.onload = () => {
+            carregarDados();
+
+            // Salvamento automático
+            campos.forEach(id => {
+                document.getElementById(id).addEventListener('input', () => {
+                    salvarTudo(); 
                 });
             });
-        });
+        };
     </script>
 
 </body>
