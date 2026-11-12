@@ -14,127 +14,56 @@
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 
 <style>
-:root{
-  --verde:#2e7d32;
-  --verde-claro:#4caf50;
-  --bg:#e8f5e9;
-}
+:root{--verde:#2e7d32;--verde-claro:#4caf50;--bg:#e8f5e9;}
 *{box-sizing:border-box;}
-body{
-  font-family:'Segoe UI',system-ui,Tahoma,Geneva,Verdana,sans-serif;
-  background:var(--bg); color:#333; margin:0; padding:16px;
-}
-.container{
-  max-width:880px; margin:0 auto; background:#fff; padding:22px;
-  border-radius:14px; box-shadow:0 6px 22px rgba(0,0,0,.08);
-}
-h1{
-  color:var(--verde); text-align:center; font-size:1.5rem;
-  margin:0 0 6px; padding-bottom:10px; border-bottom:2px solid #a5d6a7;
-}
-h2{color:var(--verde); font-size:1.15rem;}
+body{font-family:'Segoe UI',system-ui,Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:#333;margin:0;padding:16px;}
+.container{max-width:880px;margin:0 auto;background:#fff;padding:22px;border-radius:14px;box-shadow:0 6px 22px rgba(0,0,0,.08);}
+h1{color:var(--verde);text-align:center;font-size:1.5rem;margin:0 0 6px;padding-bottom:10px;border-bottom:2px solid #a5d6a7;}
+h2{color:var(--verde);font-size:1.15rem;}
 .sub{text-align:center;color:#555;margin:14px 0 22px;line-height:1.5;}
-
-/* Telas */
-.tela{display:none;}
-.tela.ativa{display:block;}
-
-/* Inputs gerais */
-input[type=text],input[type=email],input[type=password],select,textarea{
-  width:100%; padding:10px; border:1px solid #ccc; border-radius:8px;
-  font-family:inherit; font-size:15px; background:#fafafa;
-}
+.tela{display:none;}.tela.ativa{display:block;}
+input[type=text],input[type=email],input[type=password],select,textarea{width:100%;padding:10px;border:1px solid #ccc;border-radius:8px;font-family:inherit;font-size:15px;background:#fafafa;}
 textarea{resize:vertical;}
-input:focus,select:focus,textarea:focus{
-  outline:none; border-color:var(--verde-claro); background:#fff;
-  box-shadow:0 0 5px rgba(76,175,80,.3);
-}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--verde-claro);background:#fff;box-shadow:0 0 5px rgba(76,175,80,.3);}
 label{display:block;font-weight:600;color:#1b5e20;margin:12px 0 5px;}
-
-/* Botões */
-.btn-principal{
-  display:block; width:100%; padding:15px; margin-top:18px; background:var(--verde-claro);
-  color:#fff; border:none; border-radius:8px; font-size:17px; font-weight:700;
-  cursor:pointer; transition:.25s;
-}
+.btn-principal{display:block;width:100%;padding:15px;margin-top:18px;background:var(--verde-claro);color:#fff;border:none;border-radius:8px;font-size:17px;font-weight:700;cursor:pointer;transition:.25s;}
 .btn-principal:hover{background:#388e3c;}
 .btn-principal:disabled{background:#a5d6a7;cursor:not-allowed;}
-.btn-secundario{
-  display:block; width:100%; padding:12px; margin-top:10px; background:#fff;
-  color:var(--verde); border:1.5px solid #a5d6a7; border-radius:8px;
-  font-size:15px; font-weight:600; cursor:pointer; transition:.25s;
-}
+.btn-secundario{display:block;width:100%;padding:12px;margin-top:10px;background:#fff;color:var(--verde);border:1.5px solid #a5d6a7;border-radius:8px;font-size:15px;font-weight:600;cursor:pointer;transition:.25s;}
 .btn-secundario:hover{background:#f1f8e9;}
-.btn-perigo{
-  display:block; width:100%; padding:12px; margin-top:10px; background:#fff;
-  color:#c62828; border:1.5px solid #ef9a9a; border-radius:8px;
-  font-size:15px; font-weight:600; cursor:pointer;
-}
+.btn-perigo{display:block;width:100%;padding:12px;margin-top:10px;background:#fff;color:#c62828;border:1.5px solid #ef9a9a;border-radius:8px;font-size:15px;font-weight:600;cursor:pointer;}
 .btn-perigo:hover{background:#ffebee;}
-.btn-mini{
-  padding:8px 14px; background:#fff; border:1.5px solid #a5d6a7; color:var(--verde);
-  border-radius:8px; font-weight:600; cursor:pointer; font-size:14px;
-}
-
-/* Escolha de perfil */
+.btn-mini{padding:8px 14px;background:#fff;border:1.5px solid #a5d6a7;color:var(--verde);border-radius:8px;font-weight:600;cursor:pointer;font-size:14px;}
 .perfis{display:grid;gap:14px;grid-template-columns:1fr;}
 @media(min-width:620px){.perfis{grid-template-columns:repeat(3,1fr);}}
-.perfil-btn{
-  display:flex; flex-direction:column; align-items:center; gap:8px;
-  padding:26px 14px; border:2px solid #c8e6c9; background:#f1f8e9;
-  border-radius:14px; font-size:17px; font-weight:700; color:var(--verde);
-  cursor:pointer; transition:.25s;
-}
+.perfil-btn{display:flex;flex-direction:column;align-items:center;gap:8px;padding:26px 14px;border:2px solid #c8e6c9;background:#f1f8e9;border-radius:14px;font-size:17px;font-weight:700;color:var(--verde);cursor:pointer;transition:.25s;}
 .perfil-btn span.emoji{font-size:34px;line-height:1;}
 .perfil-btn:hover{border-color:var(--verde-claro);background:#e8f5e9;transform:translateY(-2px);}
-
 .rodape-link{text-align:center;margin-top:26px;font-size:.85rem;}
 .rodape-link a{color:#8d9e8f;text-decoration:none;}
 .rodape-link a:hover{color:var(--verde);text-decoration:underline;}
-
-/* Perguntas do formulário */
 .pergunta{margin-bottom:22px;padding-bottom:16px;border-bottom:1px solid #eee;}
 .pergunta h3{font-size:16px;color:#1b5e20;margin:0 0 12px;line-height:1.4;font-weight:600;}
 .pergunta.invalido{border:2px solid #e53935;background:#ffebee;padding:12px;border-radius:10px;}
 .obrig{color:#e53935;}
-.opcao{
-  display:flex; align-items:center; gap:12px; padding:13px 14px;
-  border:1.5px solid #e0e0e0; border-radius:10px; margin-bottom:9px;
-  cursor:pointer; background:#fafafa; transition:.2s; font-size:15px;
-}
+.opcao{display:flex;align-items:center;gap:12px;padding:13px 14px;border:1.5px solid #e0e0e0;border-radius:10px;margin-bottom:9px;cursor:pointer;background:#fafafa;transition:.2s;font-size:15px;}
 .opcao:hover{border-color:var(--verde-claro);background:#f1f8e9;}
 .opcao input{width:20px;height:20px;flex:0 0 auto;accent-color:var(--verde);}
 .pergunta textarea{font-size:15px;}
-
-/* Caixa de sucesso */
 .ok-box{text-align:center;padding:30px 10px;}
 .ok-emoji{font-size:56px;margin-bottom:10px;}
-
-/* Login */
 .erro{color:#c62828;font-size:.9rem;font-weight:600;height:20px;margin-top:8px;}
 .dica{font-size:.85rem;color:#777;line-height:1.45;}
-
-/* Painel admin */
 .admin-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px;}
 .admin-head h2{margin:0;}
 .tabs{display:flex;margin:10px 0 18px;border-bottom:2px solid #e0e0e0;}
-.tabs button{
-  flex:1;padding:12px;background:none;border:none;font-size:15px;font-weight:700;
-  cursor:pointer;color:#777;transition:.2s;border-radius:8px 8px 0 0;
-}
+.tabs button{flex:1;padding:12px;background:none;border:none;font-size:15px;font-weight:700;cursor:pointer;color:#777;transition:.2s;border-radius:8px 8px 0 0;}
 .tabs button.active{color:var(--verde);border-bottom:3px solid var(--verde);background:#f1f8e9;}
-
 .q-card{border:1px solid #dcedc8;border-radius:12px;padding:14px;margin-bottom:14px;background:#fafdf7;}
 .q-card .cabecalho{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:6px;}
-.q-card .badge{
-  font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;
-  background:#dcedc8;color:#33691e;padding:4px 10px;border-radius:20px;
-}
+.q-card .badge{font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;background:#dcedc8;color:#33691e;padding:4px 10px;border-radius:20px;}
 .q-card .acoes{display:flex;gap:6px;}
-.q-card .acoes button{
-  width:34px;height:34px;border:1px solid #ccc;background:#fff;border-radius:8px;
-  cursor:pointer;font-size:14px;
-}
+.q-card .acoes button{width:34px;height:34px;border:1px solid #ccc;background:#fff;border-radius:8px;cursor:pointer;font-size:14px;}
 .q-card .acoes button:hover{background:#f1f8e9;}
 .q-card .acoes button.danger:hover{background:#ffebee;border-color:#ef9a9a;}
 .q-card label{margin-top:10px;font-size:.85rem;}
@@ -142,27 +71,17 @@ label{display:block;font-weight:600;color:#1b5e20;margin:12px 0 5px;}
 .check{display:flex;align-items:center;gap:8px;font-weight:600;color:#1b5e20;margin-top:12px;}
 .check input{width:18px;height:18px;accent-color:var(--verde);}
 .status{text-align:center;color:var(--verde-claro);font-weight:700;height:22px;margin-top:10px;}
-
-/* Resultados */
 .filtros{display:flex;align-items:center;gap:10px;margin-bottom:16px;flex-wrap:wrap;}
 .filtros label{margin:0;font-size:.9rem;}
 .filtros select{max-width:220px;}
 .resumo{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));margin-bottom:20px;}
-.resumo-card{
-  background:#f1f8e9;border:1px solid #dcedc8;border-radius:10px;
-  padding:14px;text-align:center;font-size:.8rem;color:#555;font-weight:600;
-}
+.resumo-card{background:#f1f8e9;border:1px solid #dcedc8;border-radius:10px;padding:14px;text-align:center;font-size:.8rem;color:#555;font-weight:600;}
 .resumo-card span{display:block;font-size:1.7rem;color:var(--verde);font-weight:800;line-height:1.1;}
-.card-grafico{
-  border:1px solid #eee;border-radius:12px;padding:16px;margin-bottom:18px;background:#fff;
-}
+.card-grafico{border:1px solid #eee;border-radius:12px;padding:16px;margin-bottom:18px;background:#fff;}
 .card-grafico h3{font-size:15px;color:#1b5e20;margin:0 0 4px;line-height:1.4;}
 .canvas-wrap{position:relative;height:260px;margin-top:12px;}
 .lista-texto{max-height:260px;overflow-y:auto;margin-top:12px;padding-right:4px;}
-.item-texto{
-  background:#f9fbe7;border-left:4px solid #afb42b;border-radius:6px;
-  padding:10px 12px;margin-bottom:8px;font-size:.92rem;line-height:1.45;
-}
+.item-texto{background:#f9fbe7;border-left:4px solid #afb42b;border-radius:6px;padding:10px 12px;margin-bottom:8px;font-size:.92rem;line-height:1.45;}
 .admin-extra{margin-top:10px;}
 .qr-box{margin-top:26px;text-align:center;border-top:1px solid #eee;padding-top:18px;}
 .qr-box img{border:1px solid #eee;border-radius:10px;}
@@ -214,21 +133,16 @@ label{display:block;font-weight:600;color:#1b5e20;margin:12px 0 5px;}
     </div>
   </section>
 
-  <!-- ================= LOGIN ADMIN ================= -->
+  <!-- ================= LOGIN ADMIN (APENAS SENHA) ================= -->
   <section id="tela-login" class="tela">
     <h2>🔒 Acesso restrito</h2>
-    <p class="dica">Área exclusiva do responsável pelo projeto.</p>
-    <label for="admin-email">E-mail</label>
-    <input type="email" id="admin-email" placeholder="seuemail@exemplo.com" autocomplete="username">
+    <p class="dica">Digite a senha de administrador.</p>
     <label for="admin-senha">Senha</label>
     <input type="password" id="admin-senha" placeholder="••••••••" autocomplete="current-password"
            onkeydown="if(event.key==='Enter') loginAdmin()">
     <div class="erro" id="login-erro"></div>
     <button class="btn-principal" onclick="loginAdmin()">Entrar</button>
     <button class="btn-secundario" onclick="mostrarTela('inicio')">← Voltar</button>
-    <p class="dica" id="dica-local" style="display:none;margin-top:14px;">
-      ⚠️ Modo local (sem Firebase). Senha padrão: <b>admin123</b>
-    </p>
   </section>
 
   <!-- ================= PAINEL ADMIN ================= -->
@@ -289,176 +203,102 @@ label{display:block;font-weight:600;color:#1b5e20;margin:12px 0 5px;}
 
 <script>
 /* =========================================================
-   1) CONFIGURAÇÃO DO FIREBASE
-   Cole aqui os dados do seu projeto (Console do Firebase >
-   Configurações do projeto > Seus apps > SDK setup).
-   Se deixar como está, o app funciona em MODO LOCAL
-   (salva no navegador) — ótimo para testar.
+   1) CONFIGURAÇÃO DO FIREBASE (COM SEUS DADOS)
    ========================================================= */
 const firebaseConfig = {
-  apiKey:            "COLE_AQUI",
-  authDomain:        "COLE_AQUI",
-  projectId:         "COLE_AQUI",
-  storageBucket:     "COLE_AQUI",
-  messagingSenderId: "COLE_AQUI",
-  appId:             "COLE_AQUI"
+  apiKey: "AIzaSyCO-DbD1vly41g1wqNYEGEQ5q_NUtFeFww",
+  authDomain: "escola-sustentavel-4ac3b.firebaseapp.com",
+  databaseURL: "https://escola-sustentavel-4ac3b-default-rtdb.firebaseio.com",
+  projectId: "escola-sustentavel-4ac3b",
+  storageBucket: "escola-sustentavel-4ac3b.firebasestorage.app",
+  messagingSenderId: "1008156196815",
+  appId: "1:1008156196815:web:e5b9988b30e525e0099cba",
+  measurementId: "G-R2FY6GB4T9"
 };
 
-const SENHA_LOCAL_ADMIN = "admin123"; // usada apenas no MODO LOCAL
+// Seu e-mail de administrador (fixo para a tela de login pedir apenas a senha)
+const ADMIN_EMAIL = "arthurnass@icloud.com";
 
 /* =========================================================
-   2) BANCO DE PERGUNTAS PADRÃO (pode editar no painel)
+   2) BANCO DE PERGUNTAS PADRÃO
    ========================================================= */
 const PERGUNTAS_PADRAO = [
-  /* ---------- ALUNOS ---------- */
-  { id:'a1', perfil:'aluno', ordem:1, tipo:'opcoes', opcoes:['Sim','Não','Não sei'],
-    texto:'Você percebe desperdício de água na escola?', obrigatoria:true, ativa:true },
-  { id:'a2', perfil:'aluno', ordem:2, tipo:'opcoes', opcoes:['Sim','Não','Às vezes'],
-    texto:'Você costuma jogar folhas de papel fora mesmo tendo espaço para utilizá-las?', obrigatoria:true, ativa:true },
-  { id:'a3', perfil:'aluno', ordem:3, tipo:'opcoes', opcoes:['Sim','Não','Não sei'],
-    texto:'Você percebe luzes e ventiladores ligados em salas vazias?', obrigatoria:true, ativa:true },
-  { id:'a4', perfil:'aluno', ordem:4, tipo:'opcoes', opcoes:['Sim','Não','Não sei'],
-    texto:'Você acha que os alunos se preocupam com a sustentabilidade?', obrigatoria:true, ativa:true },
-  { id:'a5', perfil:'aluno', ordem:5, tipo:'opcoes',
-    opcoes:['Água','Papel','Energia elétrica','Alimentos','Materiais escolares','Outro'],
-    texto:'O que você acredita que mais é desperdiçado na escola?', obrigatoria:true, ativa:true },
-  { id:'a6', perfil:'aluno', ordem:6, tipo:'opcoes', opcoes:['Sim','Não','Às vezes'],
-    texto:'Você separa corretamente o lixo para reciclagem?', obrigatoria:true, ativa:true },
-  { id:'a7', perfil:'aluno', ordem:7, tipo:'texto', opcoes:[],
-    texto:'O que poderia ser feito para diminuir o desperdício na escola?', obrigatoria:false, ativa:true },
-  { id:'a8', perfil:'aluno', ordem:8, tipo:'opcoes', opcoes:['Sim','Não','Talvez'],
-    texto:'Você participaria de uma campanha para tornar a escola mais sustentável?', obrigatoria:true, ativa:true },
-  { id:'a9', perfil:'aluno', ordem:9, tipo:'texto', opcoes:[],
-    texto:'Que ideia você daria para melhorar a sustentabilidade da escola?', obrigatoria:false, ativa:true },
-
-  /* ---------- PROFESSORES ---------- */
-  { id:'p1', perfil:'professor', ordem:1, tipo:'opcoes',
-    opcoes:['Água','Papel','Energia elétrica','Alimentos','Materiais escolares','Outro'],
-    texto:'Qual tipo de desperdício você mais percebe na escola?', obrigatoria:true, ativa:true },
-  { id:'p2', perfil:'professor', ordem:2, tipo:'opcoes', opcoes:['Sim','Não','Parcialmente'],
-    texto:'Você acredita que os alunos têm consciência sobre o desperdício?', obrigatoria:true, ativa:true },
-  { id:'p3', perfil:'professor', ordem:3, tipo:'opcoes', opcoes:['Muito','Pouco','Nada','Não sei'],
-    texto:'Quanto papel você acredita que é desperdiçado durante as aulas?', obrigatoria:true, ativa:true },
-  { id:'p4', perfil:'professor', ordem:4, tipo:'opcoes', opcoes:['Sim','Não','Às vezes'],
-    texto:'As salas costumam ficar com luzes e ventiladores ligados sem necessidade?', obrigatoria:true, ativa:true },
-  { id:'p5', perfil:'professor', ordem:5, tipo:'opcoes', opcoes:['Sim','Não','Não sei'],
-    texto:'A escola possui alguma iniciativa de sustentabilidade?', obrigatoria:true, ativa:true },
-  { id:'p6', perfil:'professor', ordem:6, tipo:'texto', opcoes:[],
-    texto:'O que poderia ser melhorado?', obrigatoria:false, ativa:true },
-  { id:'p7', perfil:'professor', ordem:7, tipo:'opcoes', opcoes:['Sim','Não','Talvez'],
-    texto:'Você apoiaria a criação de campanhas educativas?', obrigatoria:true, ativa:true },
-
-  /* ---------- FUNCIONÁRIOS ---------- */
-  { id:'f1', perfil:'funcionario', ordem:1, tipo:'opcoes',
-    opcoes:['Água','Papel','Energia elétrica','Alimentos','Materiais de limpeza','Outro'],
-    texto:'Qual é o maior desperdício que você observa no dia a dia?', obrigatoria:true, ativa:true },
-  { id:'f2', perfil:'funcionario', ordem:2, tipo:'opcoes', opcoes:['Sim','Não','Não sei'],
-    texto:'Existe muito desperdício de água nos banheiros e bebedouros?', obrigatoria:true, ativa:true },
-  { id:'f3', perfil:'funcionario', ordem:3, tipo:'opcoes', opcoes:['Sim','Não','Às vezes'],
-    texto:'Os alunos costumam desperdiçar materiais?', obrigatoria:true, ativa:true },
-  { id:'f4', perfil:'funcionario', ordem:4, tipo:'opcoes',
-    opcoes:['Corretamente','Parcialmente','Não é feita','Não sei'],
-    texto:'Como é feita a separação do lixo?', obrigatoria:true, ativa:true },
-  { id:'f5', perfil:'funcionario', ordem:5, tipo:'texto', opcoes:[],
-    texto:'Quais são os locais da escola que mais precisam de atenção?', obrigatoria:false, ativa:true },
-  { id:'f6', perfil:'funcionario', ordem:6, tipo:'texto', opcoes:[],
-    texto:'Que mudanças poderiam ajudar a diminuir o desperdício?', obrigatoria:false, ativa:true },
-
-  /* ---------- TODOS (perguntas-chave do projeto) ---------- */
-  { id:'t1', perfil:'todos', ordem:1, tipo:'texto', opcoes:[],
-    texto:'Qual é o maior problema de desperdício da escola?', obrigatoria:false, ativa:true },
-  { id:'t2', perfil:'todos', ordem:2, tipo:'texto', opcoes:[],
-    texto:'Que solução simples poderia resolver esse problema?', obrigatoria:false, ativa:true },
-  { id:'t3', perfil:'todos', ordem:3, tipo:'opcoes', opcoes:['Sim','Não','Talvez'],
-    texto:'Você utilizaria um coletor inteligente para separar o lixo?', obrigatoria:true, ativa:true },
-  { id:'t4', perfil:'todos', ordem:4, tipo:'opcoes', opcoes:['Sim','Não','Não sei'],
-    texto:'Uma sinalização educativa ajudaria a diminuir o desperdício?', obrigatoria:true, ativa:true },
-  { id:'t5', perfil:'todos', ordem:5, tipo:'texto', opcoes:[],
-    texto:'O que você mudaria na escola para torná-la mais sustentável?', obrigatoria:false, ativa:true }
+  { id:'a1', perfil:'aluno', ordem:1, tipo:'opcoes', opcoes:['Sim','Não','Não sei'], texto:'Você percebe desperdício de água na escola?', obrigatoria:true, ativa:true },
+  { id:'a2', perfil:'aluno', ordem:2, tipo:'opcoes', opcoes:['Sim','Não','Às vezes'], texto:'Você costuma jogar folhas de papel fora mesmo tendo espaço para utilizá-las?', obrigatoria:true, ativa:true },
+  { id:'a3', perfil:'aluno', ordem:3, tipo:'opcoes', opcoes:['Sim','Não','Não sei'], texto:'Você percebe luzes e ventiladores ligados em salas vazias?', obrigatoria:true, ativa:true },
+  { id:'a4', perfil:'aluno', ordem:4, tipo:'opcoes', opcoes:['Sim','Não','Não sei'], texto:'Você acha que os alunos se preocupam com a sustentabilidade?', obrigatoria:true, ativa:true },
+  { id:'a5', perfil:'aluno', ordem:5, tipo:'opcoes', opcoes:['Água','Papel','Energia elétrica','Alimentos','Materiais escolares','Outro'], texto:'O que você acredita que mais é desperdiçado na escola?', obrigatoria:true, ativa:true },
+  { id:'a6', perfil:'aluno', ordem:6, tipo:'opcoes', opcoes:['Sim','Não','Às vezes'], texto:'Você separa corretamente o lixo para reciclagem?', obrigatoria:true, ativa:true },
+  { id:'a7', perfil:'aluno', ordem:7, tipo:'texto', opcoes:[], texto:'O que poderia ser feito para diminuir o desperdício na escola?', obrigatoria:false, ativa:true },
+  { id:'a8', perfil:'aluno', ordem:8, tipo:'opcoes', opcoes:['Sim','Não','Talvez'], texto:'Você participaria de uma campanha para tornar a escola mais sustentável?', obrigatoria:true, ativa:true },
+  { id:'a9', perfil:'aluno', ordem:9, tipo:'texto', opcoes:[], texto:'Que ideia você daria para melhorar a sustentabilidade da escola?', obrigatoria:false, ativa:true },
+  { id:'p1', perfil:'professor', ordem:1, tipo:'opcoes', opcoes:['Água','Papel','Energia elétrica','Alimentos','Materiais escolares','Outro'], texto:'Qual tipo de desperdício você mais percebe na escola?', obrigatoria:true, ativa:true },
+  { id:'p2', perfil:'professor', ordem:2, tipo:'opcoes', opcoes:['Sim','Não','Parcialmente'], texto:'Você acredita que os alunos têm consciência sobre o desperdício?', obrigatoria:true, ativa:true },
+  { id:'p3', perfil:'professor', ordem:3, tipo:'opcoes', opcoes:['Muito','Pouco','Nada','Não sei'], texto:'Quanto papel você acredita que é desperdiçado durante as aulas?', obrigatoria:true, ativa:true },
+  { id:'p4', perfil:'professor', ordem:4, tipo:'opcoes', opcoes:['Sim','Não','Às vezes'], texto:'As salas costumam ficar com luzes e ventiladores ligados sem necessidade?', obrigatoria:true, ativa:true },
+  { id:'p5', perfil:'professor', ordem:5, tipo:'opcoes', opcoes:['Sim','Não','Não sei'], texto:'A escola possui alguma iniciativa de sustentabilidade?', obrigatoria:true, ativa:true },
+  { id:'p6', perfil:'professor', ordem:6, tipo:'texto', opcoes:[], texto:'O que poderia ser melhorado?', obrigatoria:false, ativa:true },
+  { id:'p7', perfil:'professor', ordem:7, tipo:'opcoes', opcoes:['Sim','Não','Talvez'], texto:'Você apoiaria a criação de campanhas educativas?', obrigatoria:true, ativa:true },
+  { id:'f1', perfil:'funcionario', ordem:1, tipo:'opcoes', opcoes:['Água','Papel','Energia elétrica','Alimentos','Materiais de limpeza','Outro'], texto:'Qual é o maior desperdício que você observa no dia a dia?', obrigatoria:true, ativa:true },
+  { id:'f2', perfil:'funcionario', ordem:2, tipo:'opcoes', opcoes:['Sim','Não','Não sei'], texto:'Existe muito desperdício de água nos banheiros e bebedouros?', obrigatoria:true, ativa:true },
+  { id:'f3', perfil:'funcionario', ordem:3, tipo:'opcoes', opcoes:['Sim','Não','Às vezes'], texto:'Os alunos costumam desperdiçar materiais?', obrigatoria:true, ativa:true },
+  { id:'f4', perfil:'funcionario', ordem:4, tipo:'opcoes', opcoes:['Corretamente','Parcialmente','Não é feita','Não sei'], texto:'Como é feita a separação do lixo?', obrigatoria:true, ativa:true },
+  { id:'f5', perfil:'funcionario', ordem:5, tipo:'texto', opcoes:[], texto:'Quais são os locais da escola que mais precisam de atenção?', obrigatoria:false, ativa:true },
+  { id:'f6', perfil:'funcionario', ordem:6, tipo:'texto', opcoes:[], texto:'Que mudanças poderiam ajudar a diminuir o desperdício?', obrigatoria:false, ativa:true },
+  { id:'t1', perfil:'todos', ordem:1, tipo:'texto', opcoes:[], texto:'Qual é o maior problema de desperdício da escola?', obrigatoria:false, ativa:true },
+  { id:'t2', perfil:'todos', ordem:2, tipo:'texto', opcoes:[], texto:'Que solução simples poderia resolver esse problema?', obrigatoria:false, ativa:true },
+  { id:'t3', perfil:'todos', ordem:3, tipo:'opcoes', opcoes:['Sim','Não','Talvez'], texto:'Você utilizaria um coletor inteligente para separar o lixo?', obrigatoria:true, ativa:true },
+  { id:'t4', perfil:'todos', ordem:4, tipo:'opcoes', opcoes:['Sim','Não','Não sei'], texto:'Uma sinalização educativa ajudaria a diminuir o desperdício?', obrigatoria:true, ativa:true },
+  { id:'t5', perfil:'todos', ordem:5, tipo:'texto', opcoes:[], texto:'O que você mudaria na escola para torná-la mais sustentável?', obrigatoria:false, ativa:true }
 ];
 
 /* =========================================================
-   3) INICIALIZAÇÃO DO FIREBASE / MODO LOCAL
+   3) INICIALIZAÇÃO DO FIREBASE
    ========================================================= */
-let modoLocal = true, db = null, auth = null;
+let db = null, auth = null;
 
 (function initFirebase(){
   try{
-    if (!String(firebaseConfig.apiKey).includes("COLE_AQUI")){
-      firebase.initializeApp(firebaseConfig);
-      db = firebase.firestore();
-      auth = firebase.auth();
-      modoLocal = false;
-      // Mantém o admin logado ao recarregar a página
-      auth.onAuthStateChanged(user => {
-        if (user && !adminLogado) entrarAdmin();
-      });
-    }
+    firebase.initializeApp(firebaseConfig);
+    db = firebase.firestore();
+    auth = firebase.auth();
+    auth.onAuthStateChanged(user => {
+      if (user && !adminLogado) entrarAdmin();
+    });
   }catch(e){
-    console.warn("Firebase não iniciado — usando modo local.", e);
-    modoLocal = true;
+    console.error("Erro ao inicializar Firebase:", e);
+    alert("Erro de configuração do Firebase. Verifique o console.");
   }
 })();
 
 /* =========================================================
-   4) CAMADA DE DADOS (Firestore ou localStorage)
+   4) CAMADA DE DADOS (FIRESTORE)
    ========================================================= */
-const LS_PERGUNTAS = 'ems_perguntas_v1';
-const LS_RESPOSTAS = 'ems_respostas_v1';
 const clonar = obj => JSON.parse(JSON.stringify(obj));
 
 const Store = {
   async getPerguntas(){
-    if (modoLocal){
-      const raw = localStorage.getItem(LS_PERGUNTAS);
-      if (!raw){
-        localStorage.setItem(LS_PERGUNTAS, JSON.stringify(PERGUNTAS_PADRAO));
-        return clonar(PERGUNTAS_PADRAO);
-      }
-      try { return JSON.parse(raw); } catch(e){ return clonar(PERGUNTAS_PADRAO); }
-    }
     const snap = await db.collection('configuracoes').doc('perguntas').get();
     if (!snap.exists) return clonar(PERGUNTAS_PADRAO);
     return (snap.data().lista || []);
   },
-
   async salvarPerguntas(lista){
-    if (modoLocal){
-      localStorage.setItem(LS_PERGUNTAS, JSON.stringify(lista));
-      return;
-    }
     await db.collection('configuracoes').doc('perguntas').set({
       lista: lista,
       atualizadoEm: firebase.firestore.FieldValue.serverTimestamp()
     });
   },
-
   async addResposta(obj){
-    if (modoLocal){
-      const raw = localStorage.getItem(LS_RESPOSTAS);
-      const arr = raw ? JSON.parse(raw) : [];
-      arr.push({ id:'r_'+Date.now()+'_'+Math.random().toString(36).slice(2,7),
-                 criadoEm: Date.now(), ...obj });
-      localStorage.setItem(LS_RESPOSTAS, JSON.stringify(arr));
-      return;
-    }
     await db.collection('respostas').add({
       ...obj,
       criadoEm: firebase.firestore.FieldValue.serverTimestamp()
     });
   },
-
   async getRespostas(){
-    if (modoLocal){
-      const raw = localStorage.getItem(LS_RESPOSTAS);
-      return raw ? JSON.parse(raw) : [];
-    }
     const snap = await db.collection('respostas').orderBy('criadoEm','desc').limit(5000).get();
     return snap.docs.map(d => ({ id: d.id, ...d.data() }));
   },
-
   async apagarRespostas(){
-    if (modoLocal){ localStorage.removeItem(LS_RESPOSTAS); return; }
     const snap = await db.collection('respostas').get();
     let lote = db.batch(), cont = 0, lotes = [];
     snap.docs.forEach(d => {
@@ -490,23 +330,16 @@ let adminLogado = false;
 let enviando = false;
 
 /* =========================================================
-   6) NAVEGAÇÃO ENTRE TELAS
+   6) NAVEGAÇÃO E UTILITÁRIOS
    ========================================================= */
 function mostrarTela(id){
   document.querySelectorAll('.tela').forEach(t => t.classList.toggle('ativa', t.id === 'tela-' + id));
   window.scrollTo({ top:0, behavior:'smooth' });
 }
-
-function voltarInicio(){
-  perfilSelecionado = null;
-  perguntasAtuais = [];
-  mostrarTela('inicio');
-}
-
-function nomePerfil(id){
-  const p = PERFIS.find(x => x.id === id);
-  return p ? p.nome : 'Todos';
-}
+function voltarInicio(){ perfilSelecionado = null; perguntasAtuais = []; mostrarTela('inicio'); }
+function nomePerfil(id){ const p = PERFIS.find(x => x.id === id); return p ? p.nome : 'Todos'; }
+function escapeHtml(s){ return String(s === null || s === undefined ? '' : s).replace(/[&<>"']/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c])); }
+function escapeAttr(s){ return escapeHtml(s); }
 
 /* =========================================================
    7) FORMULÁRIO PÚBLICO
@@ -514,8 +347,7 @@ function nomePerfil(id){
 async function iniciarFormulario(perfil){
   perfilSelecionado = perfil;
   document.getElementById('form-titulo').textContent = 'Questionário — ' + nomePerfil(perfil);
-  document.getElementById('form-perguntas').innerHTML =
-    '<p class="dica">Carregando perguntas...</p>';
+  document.getElementById('form-perguntas').innerHTML = '<p class="dica">Carregando perguntas...</p>';
   mostrarTela('form');
 
   try{
@@ -538,15 +370,12 @@ async function iniciarFormulario(perfil){
 
 function renderForm(){
   const cont = document.getElementById('form-perguntas');
-
   if (!perguntasAtuais.length){
     cont.innerHTML = '<p class="dica">Nenhuma pergunta disponível no momento.</p>';
     return;
   }
-
   cont.innerHTML = perguntasAtuais.map((p, i) => {
     let inner = '';
-
     if (p.tipo === 'texto'){
       inner = `<textarea id="q_${p.id}" rows="3" placeholder="Escreva sua resposta..."></textarea>`;
     } else if (p.tipo === 'opcoes'){
@@ -555,14 +384,13 @@ function renderForm(){
           <input type="radio" name="q_${p.id}" value="${escapeAttr(o)}">
           <span>${escapeHtml(o)}</span>
         </label>`).join('');
-    } else { // multipla
+    } else {
       inner = (p.opcoes || []).map(o => `
         <label class="opcao">
           <input type="checkbox" name="q_${p.id}" value="${escapeAttr(o)}">
           <span>${escapeHtml(o)}</span>
         </label>`).join('');
     }
-
     return `<div class="pergunta">
       <h3>${i + 1}. ${escapeHtml(p.texto)}${p.obrigatoria ? ' <span class="obrig">*</span>' : ''}</h3>
       ${inner}
@@ -572,7 +400,6 @@ function renderForm(){
 
 async function enviarRespostas(){
   if (enviando) return;
-
   const respostas = {};
   let faltando = null;
 
@@ -584,31 +411,23 @@ async function enviarRespostas(){
       const sel = document.querySelector(`input[name="q_${p.id}"]:checked`);
       valor = sel ? sel.value : '';
     } else {
-      valor = Array.from(document.querySelectorAll(`input[name="q_${p.id}"]:checked`))
-                   .map(el => el.value);
+      valor = Array.from(document.querySelectorAll(`input[name="q_${p.id}"]:checked`)).map(el => el.value);
     }
     respostas[p.id] = valor;
-
     const vazio = Array.isArray(valor) ? valor.length === 0 : !valor;
     if (p.obrigatoria && vazio && !faltando) faltando = p;
   }
 
   if (faltando){
-    const alvo = document.querySelector(`[name="q_${faltando.id}"]`) ||
-                 document.getElementById('q_' + faltando.id);
+    const alvo = document.querySelector(`[name="q_${faltando.id}"]`) || document.getElementById('q_' + faltando.id);
     const card = alvo ? alvo.closest('.pergunta') : null;
-    if (card){
-      card.classList.add('invalido');
-      card.scrollIntoView({ behavior:'smooth', block:'center' });
-    }
+    if (card){ card.classList.add('invalido'); card.scrollIntoView({ behavior:'smooth', block:'center' }); }
     alert('Por favor, responda: "' + faltando.texto + '"');
     return;
   }
 
   const btn = document.getElementById('btn-enviar');
-  enviando = true;
-  btn.disabled = true;
-  btn.textContent = 'Enviando...';
+  enviando = true; btn.disabled = true; btn.textContent = 'Enviando...';
 
   try{
     await Store.addResposta({ perfil: perfilSelecionado, respostas });
@@ -617,52 +436,37 @@ async function enviarRespostas(){
     console.error(e);
     alert('Não foi possível enviar suas respostas. Tente novamente.');
   }finally{
-    enviando = false;
-    btn.disabled = false;
-    btn.textContent = 'Enviar respostas';
+    enviando = false; btn.disabled = false; btn.textContent = 'Enviar respostas';
   }
 }
 
 /* =========================================================
-   8) LOGIN / LOGOUT DO ADMINISTRADOR
+   8) LOGIN / LOGOUT DO ADMINISTRADOR (APENAS SENHA)
    ========================================================= */
 function abrirLogin(){
   document.getElementById('login-erro').textContent = '';
-  document.getElementById('dica-local').style.display = modoLocal ? 'block' : 'none';
+  document.getElementById('admin-senha').value = '';
   mostrarTela('login');
 }
 
 async function loginAdmin(){
-  const email = document.getElementById('admin-email').value.trim();
   const senha = document.getElementById('admin-senha').value;
   const erroEl = document.getElementById('login-erro');
   erroEl.textContent = '';
 
-  if (modoLocal){
-    if (senha === SENHA_LOCAL_ADMIN){
-      entrarAdmin();
-    } else {
-      erroEl.textContent = 'Senha incorreta.';
-    }
-    return;
-  }
-
-  if (!email || !senha){
-    erroEl.textContent = 'Informe e-mail e senha.';
-    return;
-  }
+  if (!senha){ erroEl.textContent = 'Digite a senha.'; return; }
 
   try{
-    await auth.signInWithEmailAndPassword(email, senha);
+    await auth.signInWithEmailAndPassword(ADMIN_EMAIL, senha);
     // onAuthStateChanged chama entrarAdmin()
   }catch(e){
     console.error(e);
-    if (e.code === 'auth/invalid-credential' || e.code === 'auth/wrong-password' || e.code === 'auth/user-not-found'){
-      erroEl.textContent = 'E-mail ou senha incorretos.';
+    if (e.code === 'auth/wrong-password' || e.code === 'auth/invalid-credential'){
+      erroEl.textContent = 'Senha incorreta.';
     } else if (e.code === 'auth/too-many-requests'){
       erroEl.textContent = 'Muitas tentativas. Aguarde alguns minutos.';
     } else {
-      erroEl.textContent = 'Erro ao entrar: ' + e.message;
+      erroEl.textContent = 'Erro ao entrar. Verifique a configuração.';
     }
   }
 }
@@ -678,9 +482,7 @@ async function entrarAdmin(){
 
 async function sairAdmin(){
   adminLogado = false;
-  if (!modoLocal && auth){
-    try { await auth.signOut(); } catch(e){ console.warn(e); }
-  }
+  try { await auth.signOut(); } catch(e){ console.warn(e); }
   mostrarTela('inicio');
 }
 
@@ -704,12 +506,10 @@ async function abrirEditor(){
 
 function renderEditor(){
   const cont = document.getElementById('editor-perguntas');
-
   if (!perguntasAdmin.length){
     cont.innerHTML = '<p class="dica">Nenhuma pergunta cadastrada. Clique em "Adicionar pergunta".</p>';
     return;
   }
-
   cont.innerHTML = perguntasAdmin.map((p, i) => `
     <div class="q-card">
       <div class="cabecalho">
@@ -721,10 +521,8 @@ function renderEditor(){
           <button type="button" class="danger" data-act="del" data-idx="${i}" title="Excluir">🗑</button>
         </div>
       </div>
-
       <label>Pergunta</label>
       <textarea data-field="texto" data-idx="${i}" rows="2">${escapeHtml(p.texto)}</textarea>
-
       <div class="linha">
         <div>
           <label>Público</label>
@@ -742,10 +540,8 @@ function renderEditor(){
           </select>
         </div>
       </div>
-
       <label>Opções (uma por linha — ignore se for texto livre)</label>
       <textarea data-field="opcoes" data-idx="${i}" rows="4">${escapeHtml((p.opcoes || []).join('\n'))}</textarea>
-
       <label class="check">
         <input type="checkbox" data-field="ativa" data-idx="${i}" ${p.ativa !== false ? 'checked' : ''}>
         Pergunta ativa (aparece para os respondentes)
@@ -758,15 +554,12 @@ function renderEditor(){
   `).join('');
 }
 
-/* Atualiza o objeto em memória enquanto digita */
 document.getElementById('editor-perguntas').addEventListener('input', e => {
   const idx = e.target.dataset.idx;
   const field = e.target.dataset.field;
   if (idx === undefined || !field) return;
-
   const i = Number(idx);
   if (!perguntasAdmin[i]) return;
-
   if (field === 'opcoes'){
     perguntasAdmin[i].opcoes = e.target.value.split('\n').map(s => s.trim()).filter(Boolean);
   } else if (e.target.type === 'checkbox'){
@@ -776,14 +569,11 @@ document.getElementById('editor-perguntas').addEventListener('input', e => {
   }
 });
 
-/* Ações dos botões (subir, descer, duplicar, excluir) */
 document.getElementById('editor-perguntas').addEventListener('click', e => {
   const btn = e.target.closest('button[data-act]');
   if (!btn) return;
-
   const i = Number(btn.dataset.idx);
   const act = btn.dataset.act;
-
   if (act === 'del'){
     if (!confirm('Excluir esta pergunta?')) return;
     perguntasAdmin.splice(i, 1);
@@ -845,28 +635,18 @@ function abaAdmin(aba){
   document.getElementById('painel-resultados').style.display = aba === 'resultados' ? 'block' : 'none';
   document.getElementById('tab-perguntas').classList.toggle('active',  aba === 'perguntas');
   document.getElementById('tab-resultados').classList.toggle('active', aba === 'resultados');
-
   if (aba === 'resultados') carregarResultados();
 }
 
 async function carregarResultados(){
   const cont = document.getElementById('resultados');
   cont.innerHTML = '<p class="dica">Carregando resultados...</p>';
-
   try{
-    const [perguntas, todasRespostas] = await Promise.all([
-      Store.getPerguntas(),
-      Store.getRespostas()
-    ]);
-
+    const [perguntas, todasRespostas] = await Promise.all([ Store.getPerguntas(), Store.getRespostas() ]);
     perguntasAdmin = perguntas;
     respostasCache = todasRespostas;
-
     const filtro = document.getElementById('filtro-perfil').value;
-    const respostas = filtro === 'todos'
-      ? todasRespostas
-      : todasRespostas.filter(r => r.perfil === filtro);
-
+    const respostas = filtro === 'todos' ? todasRespostas : todasRespostas.filter(r => r.perfil === filtro);
     renderResultados(respostas, filtro, perguntas);
   }catch(e){
     console.error(e);
@@ -875,14 +655,11 @@ async function carregarResultados(){
 }
 
 function renderResultados(respostas, filtro, perguntas){
-  // Limpa gráficos anteriores
   Object.values(graficos).forEach(g => { try { g.destroy(); } catch(e){} });
   graficos = {};
-
   const cont = document.getElementById('resultados');
   cont.innerHTML = '';
 
-  /* ---- Resumo geral ---- */
   const porPerfil = { aluno:0, professor:0, funcionario:0 };
   respostas.forEach(r => { if (porPerfil[r.perfil] !== undefined) porPerfil[r.perfil]++; });
 
@@ -893,136 +670,87 @@ function renderResultados(respostas, filtro, perguntas){
     <div class="resumo-card"><span>${porPerfil.funcionario}</span>funcionários</div>
   `;
 
-  /* ---- Quais perguntas exibir ---- */
   const ativas = perguntas.filter(p => p.ativa !== false);
-  const visiveis = filtro === 'todos'
-    ? ativas
-    : ativas.filter(p => p.perfil === filtro || p.perfil === 'todos');
-
+  const visiveis = filtro === 'todos' ? ativas : ativas.filter(p => p.perfil === filtro || p.perfil === 'todos');
   if (!visiveis.length){
     cont.innerHTML = '<p class="dica">Nenhuma pergunta para este filtro.</p>';
     return;
   }
 
   const filaGraficos = [];
-
   visiveis.forEach(p => {
     const card = document.createElement('div');
     card.className = 'card-grafico';
-
     const respondidas = respostas.filter(r => {
       const v = r.respostas ? r.respostas[p.id] : undefined;
       return Array.isArray(v) ? v.length > 0 : (v !== undefined && v !== '');
     }).length;
-
     const h3 = document.createElement('h3');
     h3.textContent = p.texto;
     card.appendChild(h3);
-
     const info = document.createElement('p');
     info.className = 'dica';
     info.textContent = respondidas + ' resposta(s)';
     card.appendChild(info);
 
     if (p.tipo === 'texto'){
-      /* Respostas abertas em lista */
       const lista = document.createElement('div');
       lista.className = 'lista-texto';
-
-      const itens = respostas
-        .map(r => r.respostas ? r.respostas[p.id] : '')
-        .filter(t => t && String(t).trim() !== '');
-
-      if (!itens.length){
-        lista.innerHTML = '<p class="dica">Nenhuma resposta ainda.</p>';
-      } else {
-        itens.forEach(t => {
-          const div = document.createElement('div');
-          div.className = 'item-texto';
-          div.textContent = t;
-          lista.appendChild(div);
-        });
-      }
+      const itens = respostas.map(r => r.respostas ? r.respostas[p.id] : '').filter(t => t && String(t).trim() !== '');
+      if (!itens.length) lista.innerHTML = '<p class="dica">Nenhuma resposta ainda.</p>';
+      else itens.forEach(t => {
+        const div = document.createElement('div');
+        div.className = 'item-texto';
+        div.textContent = t;
+        lista.appendChild(div);
+      });
       card.appendChild(lista);
-
     } else {
-      /* Gráfico de escolha */
       const labels = (p.opcoes || []).slice();
       const contagem = {};
       labels.forEach(l => { contagem[l] = 0; });
-
       respostas.forEach(r => {
         const v = r.respostas ? r.respostas[p.id] : undefined;
-        if (Array.isArray(v)){
-          v.forEach(x => { if (contagem[x] !== undefined) contagem[x]++; });
-        } else if (v && contagem[v] !== undefined){
-          contagem[v]++;
-        }
+        if (Array.isArray(v)) v.forEach(x => { if (contagem[x] !== undefined) contagem[x]++; });
+        else if (v && contagem[v] !== undefined) contagem[v]++;
       });
-
       const wrap = document.createElement('div');
       wrap.className = 'canvas-wrap';
       const canvas = document.createElement('canvas');
       canvas.id = 'chart_' + p.id;
       wrap.appendChild(canvas);
       card.appendChild(wrap);
-
       const tipoGrafico = (p.tipo === 'opcoes' && labels.length <= 5) ? 'doughnut' : 'bar';
-      filaGraficos.push({
-        id: canvas.id,
-        labels: labels,
-        dados: labels.map(l => contagem[l]),
-        tipo: tipoGrafico
-      });
+      filaGraficos.push({ id: canvas.id, labels: labels, dados: labels.map(l => contagem[l]), tipo: tipoGrafico });
     }
-
     cont.appendChild(card);
   });
-
-  /* Cria os gráficos depois que os canvas estão no DOM */
   filaGraficos.forEach(item => criarGrafico(item));
 }
 
 function criarGrafico({ id, labels, dados, tipo }){
   const canvas = document.getElementById(id);
   if (!canvas || typeof Chart === 'undefined') return;
-
   graficos[id] = new Chart(canvas, {
     type: tipo,
     data: {
       labels: labels,
-      datasets: [{
-        data: dados,
-        backgroundColor: CORES,
-        borderColor: '#ffffff',
-        borderWidth: 2
-      }]
+      datasets: [{ data: dados, backgroundColor: CORES, borderColor: '#ffffff', borderWidth: 2 }]
     },
     options: {
       responsive: true,
       maintainAspectRatio: false,
       indexAxis: tipo === 'bar' ? 'y' : 'x',
       plugins: {
-        legend: {
-          display: tipo === 'doughnut',
-          position: 'bottom',
-          labels: { boxWidth: 14, font: { size: 12 } }
-        },
-        tooltip: {
-          callbacks: {
-            label: ctx => {
-              const total = ctx.dataset.data.reduce((a,b) => a + b, 0);
-              const val = ctx.parsed.x !== undefined && tipo === 'bar' ? ctx.parsed.x : ctx.parsed;
-              const pct = total ? ((val / total) * 100).toFixed(1) : 0;
-              return `${ctx.label}: ${val} (${pct}%)`;
-            }
-          }
-        }
+        legend: { display: tipo === 'doughnut', position: 'bottom', labels: { boxWidth: 14, font: { size: 12 } } },
+        tooltip: { callbacks: { label: ctx => {
+          const total = ctx.dataset.data.reduce((a,b) => a + b, 0);
+          const val = ctx.parsed.x !== undefined && tipo === 'bar' ? ctx.parsed.x : ctx.parsed;
+          const pct = total ? ((val / total) * 100).toFixed(1) : 0;
+          return `${ctx.label}: ${val} (${pct}%)`;
+        }}}
       },
-      scales: tipo === 'bar' ? {
-        x: { beginAtZero: true, ticks: { precision: 0 } },
-        y: { ticks: { autoSkip: false, font: { size: 12 } } }
-      } : {}
+      scales: tipo === 'bar' ? { x: { beginAtZero: true, ticks: { precision: 0 } }, y: { ticks: { autoSkip: false, font: { size: 12 } } } } : {}
     }
   });
 }
@@ -1046,15 +774,10 @@ function formatarData(v){
 }
 
 function exportarCSV(){
-  if (!respostasCache.length){
-    alert('Nenhuma resposta para exportar ainda.');
-    return;
-  }
-
+  if (!respostasCache.length){ alert('Nenhuma resposta para exportar ainda.'); return; }
   const perguntas = perguntasAdmin.length ? perguntasAdmin : PERGUNTAS_PADRAO;
   const cabecalho = ['Data', 'Público', ...perguntas.map(p => p.texto)];
   const linhas = [cabecalho.map(csvEscape).join(';')];
-
   respostasCache.forEach(r => {
     const linha = [formatarData(r.criadoEm), nomePerfil(r.perfil)];
     perguntas.forEach(p => {
@@ -1063,21 +786,17 @@ function exportarCSV(){
     });
     linhas.push(linha.map(csvEscape).join(';'));
   });
-
   const blob = new Blob(['\uFEFF' + linhas.join('\r\n')], { type:'text/csv;charset=utf-8;' });
   const link = document.createElement('a');
   link.href = URL.createObjectURL(blob);
   link.download = 'respostas_escola_sustentavel_' + new Date().toISOString().slice(0,10) + '.csv';
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
+  document.body.appendChild(link); link.click(); document.body.removeChild(link);
   URL.revokeObjectURL(link.href);
 }
 
 async function apagarTudo(){
   if (!confirm('⚠️ Isso apagará TODAS as respostas registradas. Essa ação não pode ser desfeita.\n\nContinuar?')) return;
   if (!confirm('Tem certeza absoluta? Todas as respostas serão perdidas.')) return;
-
   try{
     await Store.apagarRespostas();
     respostasCache = [];
@@ -1091,20 +810,9 @@ async function apagarTudo(){
 
 function gerarQR(){
   const url = location.href.split('#')[0];
-  document.getElementById('qr-img').src =
-    'https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=' + encodeURIComponent(url);
+  document.getElementById('qr-img').src = 'https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=' + encodeURIComponent(url);
   document.getElementById('qr-url').textContent = url;
 }
-
-/* =========================================================
-   12) UTILITÁRIOS
-   ========================================================= */
-function escapeHtml(s){
-  return String(s === null || s === undefined ? '' : s).replace(/[&<>"']/g, c => ({
-    '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
-  }[c]));
-}
-function escapeAttr(s){ return escapeHtml(s); }
 </script>
 
 </body>
